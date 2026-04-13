@@ -1,0 +1,25 @@
+{
+  "name": "webstudy01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eentks82137-dot/WebStudy01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eentks82137-dot/WebStudy01/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/eentks82137-dot/WebStudy01#readme",
+  "dependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
+  }
+}

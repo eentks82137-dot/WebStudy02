@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <link rel="stylesheet" href="./resources/css/index.css" />
+    <link rel="stylesheet" href="./resources/css/fonts.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="imageDiv">
+        <img src="./resources/images/icon_5.png" alt="Icon" />
+        <img src="./resources/images/icon_1.gif" alt="Icon" />
+      </div>
+      <header class="header">
+        <div class="header-left">
+          <div class="logo-group">
+            <span class="logo-icon">🚀</span>
+            <h1>Index</h1>
+          </div>
+          <a href="/index.do" class="home-link">Home</a>
+        </div>
+
+        <div class="login-info">
+          <div class="user-details">
+            <span class="memId"></span>
+            <span class="memName"></span>
+            <div class="memRoles">
+              <ul class="memRolesList"></ul>
+            </div>
+          </div>
+          <a href="/login" class="login-link">Login</a>
+        </div>
+      </header>
+      <div id="link-div"></div>
+    </div>
+
+    <script>
+      const list = [
+        { name: "Unit Converter", url: "http://localhost:8080/hw03/convert" },
+        { name: "Image List", url: "http://localhost:8080/hw02/imageList" },
+        {
+          name: "World Time CN",
+          url: "http://localhost:8080/hw03/worldtime/ui",
+        },
+        { name: "Data Form", url: "http://localhost:8080/03/data-form.jsp" },
+        { name: "Echo Service", url: "http://localhost:8080/03/echo" },
+        {
+          name: "Identify",
+          url: "http://localhost:8080/03/resourceIdentify.jsp",
+          desc: "URL / URI, 자원의 접근 경로에 따른 분류",
+        },
+
+        {
+          name: "Response Desc",
+          url: "http://localhost:8080/04/responseDesc.jsp",
+          desc: "HttpServletResponse",
+        },
+        { name: "유닛 변환기", url: "http://localhost:8080/hw04/convert" },
+        {
+          url: "http://localhost:8080/hw06/calc",
+          name: "Calculator",
+          desc: "사칙연산",
+        },
+
+        {
+          url: "http://localhost:8080/resources/html/hw06/iframe-view.html",
+          name: "/resources/html/hw06/iframe-view.html",
+        },
+        {
+          url: "http://localhost:8080/hw05/exchange",
+          name: "Exchange",
+          desc: "환율 계산기",
+          date: "2026-03-30",
+        },
+        {
+          url: "http://localhost:8080/06/cookieDESC.jsp",
+          name: "Cookie Description",
+          desc: "쿠키의 개념과 특징, 사용 방법에 대한 설명",
+        },
+        {
+          url: "http://localhost:8080/06/cookieRead.jsp",
+          name: "Cookie Read",
+          desc: "쿠키 읽기 예시",
+        },
+        {
+          url: "http://localhost:8080/resources/html/hw07/media-viewer.html",
+          name: "Media Viewer",
+          desc: "미디어 파일을 선택하여 볼 수 있는 뷰어",
+        },
+        {
+          url: "http://localhost:8080/06/sessionDESC.jsp",
+          name: "Session Description",
+          desc: "세션의 개념과 특징, 사용 방법에 대한 설명",
+          date: "2026-04-01",
+        },
+        {
+          url: "http://localhost:8080/04/stateCreate",
+          name: "State Form",
+          desc: "상태 저장을 위한 폼 페이지",
+          date: "2026-04-01",
+        },
+        {
+          url: "http://localhost:8080/login",
+          name: "Login",
+          desc: "로그인 페이지",
+          date: "2026-04-02",
+        },
+        {
+          url: "http://localhost:8080/admin/allMembers",
+          name: "Member List (Admin)",
+          desc: "전체 회원 목록 페이지(인메모리)",
+          date: "2026-04-02",
+        },
+        {
+          url: "http://localhost:8080/admin/memberList",
+          name: "Member List (Admin)",
+          desc: "회원 목록 페이지 (DB)",
+          date: "2026-04-09",
+        },
+        {
+          url: "http://localhost:8080/member/changePassword",
+          name: "Change Password",
+          desc: "비밀번호 변경 페이지",
+          date: "2026-04-10",
+        },
+        {
+          url: "http://localhost:8080/books",
+          name: "Book List",
+          desc: "도서",
+          date: "2026-04-13",
+        },
+      ];
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const container = document.getElementById("link-div");
+
+        list.reverse().forEach((item) => {
+          const link = document.createElement("a");
+          const span = document.createElement("span");
+          link.href = item.url;
+          link.target = "_blank";
+          link.className = "link-item";
+
+          link.innerHTML = `
+            <span class="link-name">
+              ${item.name}
+              <span class="link-desc">${item.desc || ""}</span>
+              <span class="link-desc">${item.date || ""}</span>
+
+            </span>
+            <span class="link-url">${item.url}</span>
+          `;
+
+          container.appendChild(link);
+        });
+
+        const response = await fetch("http://localhost:8080/loginInfo");
+        const loginInfo = await response.json();
+        if (response.status !== 200) {
+          console.error("로그인 정보 조회 실패:", loginInfo);
+          return;
+        }
+        const loginLink = document.querySelector(".login-link");
+        if (loginInfo.memId) {
+          loginLink.textContent = "Logout";
+          loginLink.href = "/logout";
+        } else {
+          loginLink.textContent = "Login";
+          loginLink.href = "/login";
+        }
+        const { memId, memName, memRoles } = loginInfo;
+        document.querySelector(".memId").textContent = memId
+          ? `ID: ${memId}`
+          : "";
+        document.querySelector(".memName").textContent = memName
+          ? `Name: ${memName}`
+          : "";
+        const rolesList = document.querySelector(".memRolesList");
+        if (memRoles && memRoles.length > 0) {
+          memRoles.forEach((role) => {
+            const li = document.createElement("li");
+            li.textContent = role;
+            rolesList.appendChild(li);
+          });
+        } else {
+          document.querySelector(".memRoles").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

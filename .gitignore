@@ -1,0 +1,29 @@
+# Maven build output
+target/
+
+# Java and IDE artifacts
+*.class
+*.log
+bin/
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.factorypath
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code workspace-local files
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+node_modules/
+dist/
+
