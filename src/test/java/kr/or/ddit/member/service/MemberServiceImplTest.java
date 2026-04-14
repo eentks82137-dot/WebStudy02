@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import kr.or.ddit.member.dao.MemberMapperImpl;
 import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.member.mapper.MemberMapper;
+import kr.or.ddit.mybatis.MapperProxyGenerator;
 
 public class MemberServiceImplTest {
-    MemberMapperImpl dao = new MemberMapperImpl();
+    MemberMapper dao = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
     MemberServiceImpl memberServiceImpl = new MemberServiceImpl();
 
     @Test

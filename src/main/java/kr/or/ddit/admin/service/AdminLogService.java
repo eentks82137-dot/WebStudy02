@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 public class AdminLogService {
     public String[] getRecentLogs(int linesToRead) throws IOException {
         String filePath = "/home/san02/logs/app.log";

@@ -2,16 +2,14 @@ package kr.or.ddit.member.service;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.service.AuthenticateService;
-import kr.or.ddit.member.dao.MemberDAO;
-import kr.or.ddit.member.dao.MemberMapperImpl;
 import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.member.mapper.MemberMapper;
+import kr.or.ddit.mybatis.MapperProxyGenerator;
 
 public class MemberServiceImpl implements MemberService {
-    private MemberDAO dao = new MemberMapperImpl();
+    private MemberMapper dao = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
     private AuthenticateService authenticateService = new AuthenticateService();
 
     @Override
@@ -26,6 +24,6 @@ public class MemberServiceImpl implements MemberService {
         // 비밀번호 수정
         // TODO (추후 암호화 해야함)
         memberDTO.setMemPass(newPassword);
-        dao.updateMemberPassword(memberDTO);
+        dao.updatePassword(memberDTO.getMemId(), memberDTO.getMemPass());
     }
 }

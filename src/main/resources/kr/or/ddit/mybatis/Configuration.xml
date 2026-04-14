@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<properties resource="kr/or/ddit/db/DbInfo.properties"/>
+  <properties resource="kr/or/ddit/db/DbInfo.properties"/>
   <settings>
     <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
@@ -15,6 +15,9 @@
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
         <property name="password" value="${password}"/>
+        <property name="poolMaximumActiveConnections" value="${maximumPoolSize}"/>
+        <property name="poolMaximumIdleConnections" value="${minimumIdle}"/>
+        <property name="poolTimeToWait" value="${connectionTimeoutMs}"/>
       </dataSource>
     </environment>
   </environments>

@@ -10,6 +10,7 @@ public class CustomSqlSessionFactoryBuilderTest {
     @Test
     void testGetSqlSessionFactory() {
         SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+        System.out.println(sqlSessionFactory);
         assertNotNull(sqlSessionFactory);
     }
 }

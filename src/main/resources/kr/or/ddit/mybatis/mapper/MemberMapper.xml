@@ -1,24 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Member">
-<resultMap type="kr.or.ddit.member.dto.MemberDTO" id="memberMap" autoMapping="true" >
-  <id property="memId" column="mem_id"/> 
-  <collection property="memRoles" javaType="java.util.List" ofType="java.lang.String" >
-    <result column="role_name" />
-  </collection>
-</resultMap>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.member.mapper.MemberMapper">
+  <resultMap type="kr.or.ddit.member.dto.MemberDTO" id="memberMap" autoMapping="true">
+    <id property="memId" column="mem_id" />
+    <collection property="memRoles" javaType="java.util.List" ofType="java.lang.String">
+      <result column="role_name" />
+    </collection>
+  </resultMap>
 
-  <select id="selectMember" resultMap="memberMap">
-        select m.mem_id,
-                       mem_name ,
-                       mem_pass ,
-                       mr.role_name
-                  from member m
-                  left outer join member_role mr
-                on ( m.mem_id = mr.mem_id )
-                 where m.mem_id = #{memId}
-    </select>
+  <select id="selectMember" resultMap="memberMap"> 
+    select m.mem_id, mem_name , mem_pass , mr.role_name 
+    from member m 
+    left outer join member_role mr on ( m.mem_id = mr.mem_id ) 
+    where m.mem_id = #{memId} 
+  </select>
 
-</mapper>
+
+
+  <!-- selectMemberList --> 
+
+  <select id="selectMemberList" resultMap="memberMap" >
+    select m.mem_id, mem_name , mem_pass , mr.role_name , mem_mail, mem_add1, mem_add2, mem_zip, mem_hp
+    from member m 
+    left outer join member_role mr on ( m.mem_id = mr.mem_id )
+  </select>
+
+  <!-- updatePassword --> 
+
+  <update id="updatePassword">
+    update member
+    set mem_pass = #{password} 
+    where mem_id = #{username}
+  </update>
+  
+  </mapper>
