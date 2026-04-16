@@ -33,12 +33,12 @@ tbody tr:nth-child(even) {
 
 /* Interaction */
 
-
     </style>
+<%@ include file="/WEB-INF/fragments/preCss.jsp" %>
 </head>
 <body>
     <h1>Member List</h1>
-    <table border="1">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th style="width: 80px;">ID</th>
@@ -71,5 +71,6 @@ tbody tr:nth-child(even) {
             </c:choose>
         </tbody>
     </table>
+    <%@ include file="/WEB-INF/fragments/postScript.jsp" %>
 </body>
 </html>

@@ -16,7 +16,9 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.or.ddit.auth.exception.SecuredResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AuthorizationFilter extends HttpFilter {
     private Map<String, List<String>> securedResources;
 
@@ -41,7 +43,7 @@ public class AuthorizationFilter extends HttpFilter {
             String message = resourceBundle.getString(code);
 
             List<String> roles = Arrays.asList(message.toString().split(","));
-            System.out.println("URL: %s | ROLES : %s".formatted(code, roles.toString()));
+            log.info("URL: %s | ROLES : %s".formatted(code, roles.toString()));
             securedResources.put(code, roles);
         }
         return securedResources;

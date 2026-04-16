@@ -1,5 +1,6 @@
 package kr.or.ddit.member.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -18,18 +19,22 @@ public class MemberServiceImplTest {
         String oldPassword = "java";
         String newPassword = "java1";
 
-        memberServiceImpl.changePassword(username, oldPassword, newPassword);
-
+        assertDoesNotThrow(() -> memberServiceImpl.changePassword(username, oldPassword, newPassword));
         MemberDTO memberDTO = dao.selectMember(username);
         String updatedPass = memberDTO.getMemPass();
         assertEquals(newPassword, updatedPass);
 
-        // 테스트를 통과하면 다시 원래대로 돌리기
+        // 테스트를 통과하면 다시 원래대로 돌리면서 정상적으로 변경 되었는지 확인
 
-        memberServiceImpl.changePassword(username, newPassword, oldPassword);
+        assertDoesNotThrow(() -> memberServiceImpl.changePassword(username, newPassword, oldPassword));
 
         memberDTO = dao.selectMember(username);
         updatedPass = memberDTO.getMemPass();
         assertEquals(oldPassword, updatedPass);
+    }
+
+    @Test
+    void testReadMemberList() {
+        memberServiceImpl.readMemberList().forEach(System.out::println);
     }
 }

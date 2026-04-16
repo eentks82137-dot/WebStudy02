@@ -9,7 +9,7 @@
   </resultMap>
 
   <select id="selectMember" resultMap="memberMap"> 
-    select m.mem_id, mem_name , mem_pass , mr.role_name 
+    select m.*, mr.role_name 
     from member m 
     left outer join member_role mr on ( m.mem_id = mr.mem_id ) 
     where m.mem_id = #{memId} 
@@ -32,5 +32,57 @@
     set mem_pass = #{password} 
     where mem_id = #{username}
   </update>
+
+  <!-- insertMemberRole --> 
+
+  <insert id="insertMemberRole">
+  insert into member_role (mem_id, role_name)
+  values (#{memId}, 'ROLE_USER')
+  </insert>  
+
+  <!-- insertMember --> 
+
+    <insert id="insertMember" parameterType="kr.or.ddit.member.dto.MemberDTO">
+      INSERT INTO MEMBER (
+          MEM_ID,
+          MEM_PASS,
+          MEM_NAME,
+          MEM_REGNO1,
+          MEM_REGNO2,
+          MEM_BIR,
+          MEM_ZIP,
+          MEM_ADD1,
+          MEM_ADD2,
+          MEM_HOMETEL,
+          MEM_COMTEL,
+          MEM_HP,
+          MEM_MAIL,
+          MEM_JOB,
+          MEM_LIKE,
+          MEM_MEMORIAL,
+          MEM_MEMORIALDAY
+
+      ) VALUES (
+        #{memId}, 
+        #{memPass}, 
+        #{memName}, 
+        #{memRegno1}, 
+        #{memRegno2}, 
+        #{memBir}, 
+        #{memZip}, 
+        #{memAdd1}, 
+        #{memAdd2}, 
+        #{memHometel}, 
+        #{memComtel}, 
+        #{memHp}, 
+        #{memMail}, 
+        #{memJob}, 
+        #{memLike}, 
+        #{memMemorial}, 
+        #{memMemorialday}
+
+      )
+
+  </insert> 
   
-  </mapper>
+   </mapper>

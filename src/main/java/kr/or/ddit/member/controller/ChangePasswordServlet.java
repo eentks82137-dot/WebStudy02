@@ -14,7 +14,9 @@ import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @WebServlet("/member/changePassword")
 public class ChangePasswordServlet extends HttpServlet {
     private ViewResolver viewResolver = new ViewResolverComposite();
@@ -86,8 +88,8 @@ public class ChangePasswordServlet extends HttpServlet {
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            System.out.println(newPassword);
-            System.out.println(confirmPassword);
+            log.info(newPassword);
+            log.info(confirmPassword);
             return "비밀번호가 일치하지 않습니다.";
         }
 

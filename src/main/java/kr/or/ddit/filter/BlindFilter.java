@@ -12,7 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class BlindFilter extends HttpFilter {
 
     private List<String> whitelist;
@@ -28,7 +30,7 @@ public class BlindFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         String ip = req.getRemoteAddr();
-        System.out.println(ip);
+        log.info(ip);
 
         if (!StringUtils.isBlank(ip) && whitelist.contains(ip)) {
             chain.doFilter(req, res);

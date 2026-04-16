@@ -10,7 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 사용자의 정보를 가진 domain layer
+ * 사용자의 정보를 가진 domain layer(model):VO & Command Object:DTO
+ * - VO(Value Object): 값 객체, 불변 객체(immutable object)
+ * - DTO(Data Transfer Object): 계층 간 데이터 교환을 위한 객체, mutable object
  */
 
 @Data
@@ -35,6 +37,7 @@ public class MemberDTO implements Serializable {
     private String memLike;
     private String memMemorial;
     private LocalDate memMemorialday;
+
     private Integer memMileage;
     private String memDelete;
     private List<String> memRoles;
