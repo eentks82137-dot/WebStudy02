@@ -27,6 +27,7 @@ public class ProxyTest {
         System.out.println(proxy.selectMemberList());
     }
 
+    @SuppressWarnings("unchecked")
     <T> T generateMapperProxy(Class<T> mapperType) {
         SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
         InvocationHandler handler = (noOp, method, args) -> {

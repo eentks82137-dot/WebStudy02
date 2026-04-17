@@ -142,7 +142,7 @@
             </form>
             
             <div class="login-footer">
-                아직 회원이 아니신가요? <a href="#">회원가입</a>
+                아직 회원이 아니신가요? <a href="${pageContext.request.contextPath}/member/register">회원가입</a>
             </div>
         </c:if>
     </div>

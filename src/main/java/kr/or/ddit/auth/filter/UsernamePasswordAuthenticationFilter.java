@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.or.ddit.auth.exception.AuthenticationException;
-import kr.or.ddit.auth.exception.UsernameNotFoundException;
 import kr.or.ddit.auth.service.AuthenticateService;
 import kr.or.ddit.member.dto.MemberDTO;
 

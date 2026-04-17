@@ -1,15 +1,9 @@
 package kr.or.ddit.member.controller;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +15,9 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
+import kr.or.ddit.utils.MemberValidator;
+import kr.or.ddit.utils.PopulateUtils;
 import lombok.extern.slf4j.Slf4j;
-import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 @WebServlet("/member/register")
@@ -39,7 +34,6 @@ public class MemberRegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("요ㅕ청바등ㅁ ");
-        MemberDTO memberDTO = new MemberDTO();
         // if (!req.getContentType().contains("json")) {
         // resp.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
         // } else {
@@ -49,16 +43,12 @@ public class MemberRegistrationServlet extends HttpServlet {
         // }
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        try {
-            BeanUtils.populate(memberDTO, parameterMap);
-            log.info("Populated memberDTO: {}", memberDTO);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+
+        MemberDTO memberDTO = PopulateUtils.populate(parameterMap, MemberDTO.class);
 
         // 검증
         Map<String, List<String>> errors = new LinkedHashMap<>();
-        validate(memberDTO, errors);
+        MemberValidator.validate(memberDTO, errors);
         String lvn = null;
         if (errors.isEmpty()) { // 검증 통과
             service.registerMember(memberDTO);
@@ -71,32 +61,4 @@ public class MemberRegistrationServlet extends HttpServlet {
         viewResolver.resolveViewName(lvn, req, resp);
     }
 
-    private void validate(MemberDTO memberDTO, Map<String, List<String>> errors) {
-        if (StringUtils.isBlank(memberDTO.getMemId())) {
-            errors.put("memId", List.of("회원 아이디는 필수입니다."));
-        }
-        if (StringUtils.isBlank(memberDTO.getMemPass())) {
-            errors.put("memPass", List.of("비밀번호는 필수입니다."));
-
-        }
-        if (StringUtils.isBlank(memberDTO.getMemName())) {
-            errors.put("memName", List.of("회원 이름은 필수입니다."));
-
-        }
-        if (StringUtils.isBlank(memberDTO.getMemZip())) {
-            errors.put("memZip", List.of("우편번호는 필수입니다."));
-        }
-        if (StringUtils.isBlank(memberDTO.getMemAdd1())) {
-            errors.put("memAdd1", List.of("주소는 필수입니다."));
-
-        }
-        if (StringUtils.isBlank(memberDTO.getMemAdd2())) {
-            errors.put("memAdd2", List.of("상세 주소는 필수입니다."));
-
-        }
-        if (StringUtils.isBlank(memberDTO.getMemMail())) {
-            errors.put("memMail", List.of("이메일은 필수입니다."));
-
-        }
-    }
 }

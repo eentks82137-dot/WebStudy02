@@ -28,6 +28,10 @@ public class AuthenticateService {
             throw new UsernameNotFoundException(username);
         }
 
+        if (member.isMemDelete()) {
+            throw new AuthenticationException("탈퇴한 회원입니다.");
+        }
+
         if (password != null && password.equals(member.getMemPass())) {
             return member;
         } else {

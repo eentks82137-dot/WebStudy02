@@ -84,5 +84,24 @@
       )
 
   </insert> 
+
+  <update id="updateMember" parameterType="kr.or.ddit.member.dto.MemberDTO">
+    UPDATE MEMBER
+    SET 
+      MEM_NAME = #{memName},
+      MEM_BIR = #{memBir},
+      MEM_ZIP = #{memZip},
+      MEM_ADD1 = #{memAdd1},
+      MEM_ADD2 = #{memAdd2},
+      MEM_HOMETEL = #{memHometel},
+      MEM_COMTEL = #{memComtel},
+      MEM_HP = #{memHp},
+      MEM_MAIL = #{memMail},
+      MEM_JOB = #{memJob},
+      MEM_LIKE = #{memLike},
+      MEM_MEMORIAL = #{memMemorial},
+      MEM_MEMORIALDAY = #{memMemorialday}
+    WHERE MEM_ID = #{memId}
+  </update>
   
    </mapper>

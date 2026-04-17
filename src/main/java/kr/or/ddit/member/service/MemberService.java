@@ -22,8 +22,9 @@ public interface MemberService {
      * 회원 정보 수정
      * 
      * @param memberDTO 수정할 회원 정보가 담긴 MemberDTO 객체
+     * @throws AuthenticationException 인증 실패 시 발생하는 예외
      */
-    void modifyMember(MemberDTO memberDTO);
+    void modifyMember(MemberDTO memberDTO) throws AuthenticationException;
 
     /**
      * 회원 상세 조회

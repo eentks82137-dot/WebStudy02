@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import kr.or.ddit.auth.Authentication;
+import kr.or.ddit.auth.SecurityContextHolder;
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.service.AuthenticateService;
 import kr.or.ddit.common.exception.EntityNotFoundException;
@@ -13,7 +15,9 @@ import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
 import kr.or.ddit.mybatis.SqlSessionContext;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MemberServiceImpl implements MemberService {
     private MemberMapper mapper = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
     private AuthenticateService authenticateService = new AuthenticateService();
@@ -26,7 +30,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void changePassword(String username, String oldPassword, String newPassword) throws AuthenticationException {
-        MemberDTO memberDTO = authenticateService.authenticate(username, oldPassword);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("인증된 사용자 : {}", authentication.getPrincipal());
+        MemberDTO memberDTO = authenticateService.authenticate(authentication.getName(), oldPassword);
 
         // try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
         // SqlSessionContext.setSqlSession(sqlSession);
@@ -42,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void registerMember(MemberDTO memberDTO) {
-        int cnt = mapper.insertMember(memberDTO);
+        int cnt;
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             SqlSessionContext.setSqlSession(sqlSession);
             cnt = mapper.insertMember(memberDTO);
@@ -59,9 +65,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void modifyMember(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modifyMember'");
+    public void modifyMember(MemberDTO memberDTO) throws RuntimeException {
+
+        authenticateService.authenticate(memberDTO.getMemId(), memberDTO.getMemPass());
+
+        int cnt = mapper.updateMember(memberDTO);
+        if (cnt < 1) {
+            throw new RuntimeException("회원 수정 실패");
+        }
+
     }
 
     @Override

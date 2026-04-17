@@ -39,6 +39,7 @@ public class MemberDTO implements Serializable {
     private LocalDate memMemorialday;
 
     private Integer memMileage;
-    private String memDelete;
+    private boolean memDelete;
     private List<String> memRoles;
+
 }
