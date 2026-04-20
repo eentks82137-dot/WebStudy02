@@ -32,7 +32,7 @@ require_command() {
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 PROJECT_ROOT="$SCRIPT_DIR"
-TOMCAT_BASE="${TOMCAT_BASE:-/opt/tomcat}"
+TOMCAT_BASE="${TOMCAT_BASE:-/home/tomcat}"
 CONTEXT_NAME="${CONTEXT_NAME:-ROOT}"
 ARTIFACT_ID=$(xmllint --xpath 'string(/*[local-name()="project"]/*[local-name()="artifactId"])' "$PROJECT_ROOT/pom.xml")
 DEV_APP_BASE="${DEV_APP_BASE:-$TOMCAT_BASE/devapps}"
