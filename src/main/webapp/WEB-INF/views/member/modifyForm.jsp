@@ -11,12 +11,7 @@
 </head>
 <body>
 
-<c:if test="${not empty errors}">
-    <script>
-        alert("${errors}");
-    </script>
-    <c:remove var="errors" scope="session"/>
-</c:if>
+
 
 <div class="register-card">
     <h2>회원정보 수정</h2>
@@ -26,14 +21,20 @@
         <div class="section-title">계정 정보</div>
 
         <div class="form-group">
-            <label for="memName">이름 <span class="required-mark">*</span></label>
-            <input type="text" id="memName" name="memName" placeholder="이름을 입력하세요" required value="${member != null ? member.memName : ''}">
+            <label for="memName">이름 <span class="-mark">*</span></label>
+            <input type="text" id="memName" name="memName" placeholder="이름을 입력하세요"  value="${member != null ? member.memName : ''}">
+            <span>
+                ${errors.memName}
+            </span>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="memPass">비밀번호 <span class="required-mark">*</span></label>
-                <input type="password" id="memPass" name="memPass" placeholder="비밀번호를 입력하세요" required >
+                <label for="memPass">비밀번호 <span class="-mark">*</span></label>
+                <input type="password" id="memPass" name="memPass" placeholder="비밀번호를 입력하세요"  >
+                <span>
+                    ${errors.memPass}
+                </span>
             </div>
         </div>
 

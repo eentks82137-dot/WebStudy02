@@ -91,6 +91,7 @@
             <div class="btn-area">
                 <a href="${pageContext.request.contextPath}/member/changePassword" class="btn-change-password">비밀번호 변경</a>
                 <a href="${pageContext.request.contextPath}/member/modify" class="btn-change-password">회원정보 수정</a>
+                <a href="${pageContext.request.contextPath}/member/leave-out" class="btn-change-password">회원 탈퇴</a>
                 <a href="${pageContext.request.contextPath}/" class="btn-home">메인 화면으로</a>
             </div>
         </div>
@@ -105,6 +106,7 @@
         </div>
     </c:if>
     
+
 
 </body>
 </html>
