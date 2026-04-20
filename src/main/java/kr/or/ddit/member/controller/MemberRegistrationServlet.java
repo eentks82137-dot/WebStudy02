@@ -15,8 +15,9 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
-import kr.or.ddit.utils.MemberValidator;
 import kr.or.ddit.utils.PopulateUtils;
+import kr.or.ddit.validate.ValidateUtils;
+import kr.or.ddit.validate.groups.InsertGroup;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,21 +35,13 @@ public class MemberRegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("요ㅕ청바등ㅁ ");
-        // if (!req.getContentType().contains("json")) {
-        // resp.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
-        // } else {
-        // ObjectMapper objectMapper = new ObjectMapper();
-        // memberDTO = objectMapper.readValue(req.getInputStream(), MemberDTO.class);
-        // log.info("Received member data: {}", memberDTO);
-        // }
 
         Map<String, String[]> parameterMap = req.getParameterMap();
 
         MemberDTO memberDTO = PopulateUtils.populate(parameterMap, MemberDTO.class);
+        Map<String, List<String>> errors = ValidateUtils.validate(memberDTO, InsertGroup.class);
+        req.setAttribute("errors", errors);
 
-        // 검증
-        Map<String, List<String>> errors = new LinkedHashMap<>();
-        MemberValidator.validate(memberDTO, errors);
         String lvn = null;
         if (errors.isEmpty()) { // 검증 통과
             service.registerMember(memberDTO);
@@ -56,7 +49,6 @@ public class MemberRegistrationServlet extends HttpServlet {
         } else {
             lvn = "member/registrationForm";
             req.setAttribute("member", memberDTO);
-            req.setAttribute("errors", errors);
         }
         viewResolver.resolveViewName(lvn, req, resp);
     }

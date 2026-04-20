@@ -104,4 +104,15 @@
     WHERE MEM_ID = #{memId}
   </update>
   
+  <delete id="deleteMember" parameterType="String">
+    DELETE FROM MEMBER
+    WHERE MEM_ID = #{memId}
+  </delete>
+
+  <delete id="deleteMemberRole" parameterType="String">
+    DELETE FROM MEMBER_ROLE
+    WHERE MEM_ID = #{memId}
+  </delete>
+
+
    </mapper>

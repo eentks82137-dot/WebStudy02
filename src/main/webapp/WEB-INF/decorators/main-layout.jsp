@@ -10,7 +10,6 @@
 <sitemesh:write property="head"/>
 </head>
 <body>
-    <h4>공통 레이아웃의 제목</h4>
     <div class="mainBody">
     
       <sitemesh:write property="body"/>

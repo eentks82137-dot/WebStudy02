@@ -1,6 +1,8 @@
 package kr.or.ddit.member.service;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,6 +17,8 @@ import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
 import kr.or.ddit.mybatis.SqlSessionContext;
+import kr.or.ddit.validate.ValidateUtils;
+import kr.or.ddit.validate.groups.DeleteGroup;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -86,8 +90,25 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void removeMember(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeMember'");
+    public void removeMember(String memId, String memPass) {
+        // 인증
+        authenticateService.authenticate(memId, memPass);
+
+        try (SqlSession session = sqlSessionFactory.openSession();) {
+            SqlSessionContext.setSqlSession(session);
+            // delete member role
+            int cntRole = session.getMapper(MemberMapper.class).deleteMemberRole(memId);
+            // delete member
+            int cntMem = session.getMapper(MemberMapper.class).deleteMember(memId);
+            if (cntMem == 0 || cntRole == 0) {
+                // session.commit(); // 테스트용으로 막아둠
+                log.info("회원 탈퇴 처리 성공. {}", memId);
+            } else {
+                throw new RuntimeException("회원 삭제 중 오류 발생");
+            }
+        } finally {
+            SqlSessionContext.removeSqlSession();
+        }
+
     }
 }

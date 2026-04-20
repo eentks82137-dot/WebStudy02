@@ -8,6 +8,6 @@
    <mapping path="/ajax/*" exclude="true" />
   <mapping path="/member/mypage" exclude="true"/>
   <mapping path="/resources/*" exclude="true"/>
-  <mapping path="/admin/*" decorator="admin-layout.jsp"/>
-  <mapping path="/*" decorator="main-layout.jsp"/> -->
+  <mapping path="/admin/*" decorator="admin-layout.jsp"/>-->
+  <mapping path="/*" decorator="main-layout.jsp"/> 
 </sitemesh>
