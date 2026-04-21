@@ -29,14 +29,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MemberDTO implements Serializable {
-    @NotBlank(groups = { InsertGroup.class, DeleteGroup.class }, message = "회원 아이디는 필수 입력입니다.")
-    @Size(min = 4, max = 15, groups = { InsertGroup.class,
-            DeleteGroup.class }, message = "회원 아이디는 {min}~{max}자 사이여야 합니다. 입력된 값: ${validatedValue}")
+    @NotBlank(groups = {InsertGroup.class, DeleteGroup.class}, message = "회원 아이디는 필수 입력입니다.")
+    @Size(min = 4, max = 15, groups = {InsertGroup.class, DeleteGroup.class},
+            message = "회원 아이디는 {min}~{max}자 사이여야 합니다. 입력된 값: ${validatedValue}")
     private String memId;
 
-    @NotBlank(groups = { DeleteGroup.class })
-    @Size(min = 4, max = 12, groups = { DeleteGroup.class })
-    @Pattern(regexp = "[a-zA-Z]{4,12}", groups = { DeleteGroup.class })
+    @NotBlank(groups = {DeleteGroup.class})
+    @Size(min = 4, max = 12, groups = {DeleteGroup.class})
+    @Pattern(regexp = "[a-zA-Z]{4,12}", groups = {DeleteGroup.class})
     private String memPass;
 
     @NotBlank

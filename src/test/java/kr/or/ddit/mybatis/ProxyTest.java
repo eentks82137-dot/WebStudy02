@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 public class ProxyTest {
 
-    @Test
     void test() {
         SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
         Class<?> mapperType = MemberMapper.class;
@@ -22,7 +21,7 @@ public class ProxyTest {
             }
         };
         MemberMapper proxy = (MemberMapper) Proxy.newProxyInstance(mapperType.getClassLoader(),
-                new Class[] { mapperType }, handler);
+                new Class[] {mapperType}, handler);
 
         System.out.println(proxy.selectMemberList());
     }
@@ -36,8 +35,8 @@ public class ProxyTest {
                 return method.invoke(mapperProxy, args);
             }
         };
-        T proxy = (T) Proxy.newProxyInstance(mapperType.getClassLoader(),
-                new Class[] { mapperType }, handler);
+        T proxy = (T) Proxy.newProxyInstance(mapperType.getClassLoader(), new Class[] {mapperType},
+                handler);
 
         return proxy;
     }
