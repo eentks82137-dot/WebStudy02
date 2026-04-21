@@ -5,7 +5,8 @@ import kr.or.ddit.dto.BuyerDto;
 
 public interface BuyerService {
     // createBuyer
-    // readBuyer
+    BuyerDto readBuyer(String buyerId);
+
     List<BuyerDto> readBuyerList();
     // modifyBuyer
     // removeBuyer

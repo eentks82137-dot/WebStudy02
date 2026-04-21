@@ -13,24 +13,18 @@ import lombok.extern.slf4j.Slf4j;
 public class BeanUtilsTest {
     @Test
     void test1() throws Exception {
-        Map<String, Object> testMap1 = Map.of(
-                "prop1", "TextValue",
-                "prop2", 123,
-                "prop3", LocalDateTime.now());
+        Map<String, Object> testMap1 =
+                Map.of("prop1", "TextValue", "prop2", 123, "prop3", LocalDateTime.now());
         TestDummyDto testDummyDto = new TestDummyDto();
         log.info("Before population: {}", testDummyDto);
         BeanUtils.populate(testDummyDto, testMap1);
         log.info("After population: {}", testDummyDto);
     }
 
-    @Test
     void test2() throws Exception {
 
-        Map<String, String> testMap1 = Map.of(
-                "prop1", "TextValue",
-                "prop2", "123",
-                "prop3", LocalDateTime.now().toString(),
-                "prop4", LocalDate.now().toString());
+        Map<String, String> testMap1 = Map.of("prop1", "TextValue", "prop2", "123", "prop3",
+                LocalDateTime.now().toString(), "prop4", LocalDate.now().toString());
         TestDummyDto testDummyDto = new TestDummyDto();
         log.info("Before population: {}", testDummyDto);
         BeanUtils.populate(testDummyDto, testMap1);

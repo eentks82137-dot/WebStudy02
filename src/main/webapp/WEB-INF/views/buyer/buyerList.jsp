@@ -20,21 +20,21 @@
         <thead >
             <tr>
                 <th>제조사명</th>
-                <th>제조사분류코드</th>
-                <th>제조사소재지</th>
+                <th>제조사 분류코드</th>
+                <th>제조사 소재지</th>
                 <th>담당자명</th>
-                <th>이메일</th>
+                <th>담당자 이메일</th>
             </tr>
         </thead>
         <tbody>
             <c:if test="${not empty buyerList}">
                 <c:forEach var="buyer" items="${buyerList}">
-                    <tr>
-                        <td> ${buyer.buyerName} </td>
-                        <td> ${buyer.buyerGu} </td>
-                        <td style="text-align: left; padding-left: 2rem;"> ${buyer.buyerAdd1} ${buyer.buyerAdd2} ${buyer.buyerZip} </td>
-                        <td> ${buyer.buyerCharger} </td>
-                        <td style="text-align: left; padding-left: 2rem;"> ${buyer.buyerMail} </td>
+                    <tr id="${buyer.buyerId}" style="cursor: pointer;">
+                            <td> ${buyer.buyerName} </td>
+                            <td> ${buyer.lprodGu} </td>
+                            <td  style="text-align: left; padding-left: 2rem;"> ${buyer.buyerAdd1} ${buyer.buyerAdd2} ${buyer.buyerZip} </td>
+                            <td> ${buyer.buyerCharger} </td>
+                            <td style="text-align: left; padding-left: 2rem;"> ${buyer.buyerMail} </td>
                     </tr>
 
                 </c:forEach>
@@ -44,6 +44,15 @@
         </tbody>        
     </table>
     </div>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll("tr").forEach(e=> {
+                    e.addEventListener("click", ()=> {
+                        <%-- window.open(`/buyer/detail?id=\${e.id}`) --%>
+                        location.href=`/buyer/detail?id=\${e.id}`;
+                })
+            })
+        })
+    </script>
 </body>
 </html>

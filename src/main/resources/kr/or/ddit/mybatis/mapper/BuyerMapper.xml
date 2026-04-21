@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.buyer.mapper.BuyerMapper">
+    <!-- <sql id="BuyerColumns">
+        중복되는 컬럼 명 리스트 나열
+    </sql> -->
+
 
     <select id="selectBuyerList" resultType="kr.or.ddit.dto.BuyerDto">
-    select *
-    from buyer
+    select b.*, l.lprod_id "lprod.lprodId"
+                , l.lprod_gu "lprod.lprodGu"
+                , l.lprod_name "lprod.lprodName"
+    from buyer b
+    inner join lprod l on b.lprod_gu = l.lprod_gu
     </select>
+
+    <resultMap type="kr.or.ddit.dto.BuyerDto" id="buyerMap" autoMapping="true">
+        <id property="buyerId" column="buyer_id" />
+        <collection property="prodList" javaType="java.util.List" ofType="kr.or.ddit.dto.ProdDto" autoMapping="true">
+        </collection>
+    </resultMap>
+    <select id="selectBuyer" resultMap="buyerMap">
+    with buyer_view as (
+    select b.*, l.lprod_id "lprod.lprodId"
+                , l.lprod_gu "lprod.lprodGu"
+                , l.lprod_name "lprod.lprodName"
+    from buyer b
+    inner join lprod l on b.lprod_gu = l.lprod_gu
+    where b.buyer_id = #{buyerId}
+    ) 
+    select bv.*, 
+                p.*
+    from buyer_view bv
+    left outer join prod p on (p.buyer_id = bv.buyer_id)
+    </select>
+
 </mapper>

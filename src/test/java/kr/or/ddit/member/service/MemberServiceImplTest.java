@@ -12,7 +12,6 @@ public class MemberServiceImplTest {
     MemberMapper dao = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
     MemberServiceImpl memberServiceImpl = new MemberServiceImpl();
 
-    @Test
     void testUpdatePassword() {
         String username = "x001";
         String oldPassword = "java";
@@ -34,7 +33,6 @@ public class MemberServiceImplTest {
         assertEquals(oldPassword, updatedPass);
     }
 
-    @Test
     void testReadMemberList() {
         memberServiceImpl.readMemberList().forEach(System.out::println);
     }

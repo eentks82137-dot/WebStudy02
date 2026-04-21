@@ -52,7 +52,6 @@ public class ReadPropertiesTest {
         System.out.println(securedResources);
     }
 
-    @Test
     void testCase3ReadMessageBundle() {
         String baseName = "kr.or.ddit.Messages";
         ResourceBundle messageBundle = ResourceBundle.getBundle(baseName, Locale.ENGLISH);

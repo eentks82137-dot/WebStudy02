@@ -1,6 +1,8 @@
 package kr.or.ddit.dto;
 
 import java.io.Serializable;
+import java.util.List;
+import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,6 +13,12 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 제조사 관리 Domain Layer
+ * 
+ * Buyer (1)          Lprod (1) - 1:1
+ * BuyerDto   Has A   LprodDto
+ * 
+ * Buyer (1)          Prod (N)
+ * BuyerDto  Has Many ProdDto
  */
 @Data
 @EqualsAndHashCode(of = "buyerId") // buyerId만 같아도 같은 객체로 판단
@@ -24,7 +32,9 @@ public class BuyerDto implements Serializable {
     private String buyerName;
 
     @NotBlank
-    private String buyerGu;
+    private String lprodGu;
+
+    private LprodDto lprod; // Has A 관계
 
     private String buyerBank;
     private String buyerBankno;
@@ -47,4 +57,8 @@ public class BuyerDto implements Serializable {
 
     private String buyerCharger;
     private String buyerTelext;
+
+    // 거래 품목 바인드
+    List<ProdDto> prodList;
+
 }

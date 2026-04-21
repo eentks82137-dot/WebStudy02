@@ -106,3 +106,22 @@ select mem_name, (
 ) cnt
 from member
 where mem_id ='a001';
+
+
+
+-----------------------------------
+
+
+
+with buyer_view as (
+    select b.*, l.lprod_id "lprod.lprodId"
+                , l.lprod_gu "lprod.lprodGu"
+                , l.lprod_name "lprod.lprodName"
+    from buyer b
+    inner join lprod l on b.lprod_gu = l.lprod_gu
+    where b.buyer_id = 'P10101'
+    ) 
+    select bv.*
+    from buyer_view bv
+    left outer join prod p2 on (p2.buyer_id = bv.buyer_id)
+    ;

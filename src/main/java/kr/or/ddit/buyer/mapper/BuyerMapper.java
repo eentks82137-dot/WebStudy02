@@ -1,6 +1,7 @@
 package kr.or.ddit.buyer.mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import kr.or.ddit.dto.BuyerDto;
 
 /**
@@ -16,8 +17,19 @@ public interface BuyerMapper {
     int insertBuyer(BuyerDto buyerDto);
 
 
+    /**
+     * 제조사 상세 조회
+     * 
+     * @param buyerId 조회할 제조사 ID
+     * @return BuyerDto
+     */
+    BuyerDto selectBuyer(@Param("buyerId") String buyerId);
 
-    // selectBuyer
+    /**
+     * 제조사 목록 조회
+     * 
+     * @return 제조사 목록
+     */
     List<BuyerDto> selectBuyerList();
     // updateBuyer
     // deleteBuyer

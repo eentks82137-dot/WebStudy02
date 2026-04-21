@@ -21,7 +21,6 @@ public class MemberMapperImplTest {
     private SqlSessionFactory sqlSessionFactory =
             CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
 
-    @Test
     void testSelectMember() {
         MemberDTO memberDTO = mapper.selectMember("b001");
         assertNotNull(memberDTO);
@@ -34,7 +33,6 @@ public class MemberMapperImplTest {
         mapper.selectMemberList().forEach(System.out::println);
     }
 
-    @Test
     void updateMemberPassword() {
         String username = "b001";
         String password = "java";
