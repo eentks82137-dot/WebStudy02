@@ -3,7 +3,7 @@ package kr.or.ddit.auth.service;
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.exception.BadCredentialsException;
 import kr.or.ddit.auth.exception.UsernameNotFoundException;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
 

@@ -1,7 +1,6 @@
 package kr.or.ddit.member.controller;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.ViewResolver;
@@ -27,13 +26,15 @@ public class MemberRegistrationServlet extends HttpServlet {
     private MemberService service = new MemberServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         String lvn = "member/registrationForm";
         viewResolver.resolveViewName(lvn, req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         log.info("요ㅕ청바등ㅁ ");
 
         Map<String, String[]> parameterMap = req.getParameterMap();

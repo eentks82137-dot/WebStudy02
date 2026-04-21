@@ -15,14 +15,6 @@
 </head>
 <body>
 
-<c:if test="${not empty errors}"> 
-    <script>
-        alert("${errors}");
-    </script>
-    <c:remove var="errors" scope="session" />
-</c:if>
-
-
 <div class="container mt-5 mb-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -119,7 +111,7 @@
         <div class="card-footer text-end">
             <a href="memberList.do" class="btn btn-outline-secondary">목록으로</a>
             <a href="memberUpdate.do?id=${member.memId}" class="btn btn-warning">정보 수정</a>
-            <button type="button" class="btn btn-danger btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button id="deleteBtn" type="button" class="btn btn-danger btn-primary">
             회원 탈퇴
             </button>
 
@@ -127,6 +119,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,22 +129,39 @@
         <h5 class="modal-title" id="exampleModalLabel">회원 탈퇴 확인</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form action="/member/leave-out" method="POST">
+        <form action="<c:url value='/member/leave-out'/>" method="POST">
+            <div class="modal-body">
                 <p>정말 탈퇴하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
                 <input type="password" name="memPass" id="memPass" placeholder="비밀번호 입력">
-                <button type="submit">
+                <button type="submit" class="btn btn-primary">
                     회원 탈퇴
                 </button>
-
-                </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+            </div>
+        </form>
     </div>
   </div>
 </div>
+
+<h1 id="timeArea"></h1>
+
+<script>
+    setInterval(function() {
+        timeArea.innerHTML = new Date().toLocaleString();
+    }, 1000);
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        const deleteBtn = document.getElementById('deleteBtn');
+        deleteBtn.addEventListener('click', function() {
+            if (confirm('정말 탈퇴하시겠습니까?')) {
+                myModal.show();
+            }
+        });
+    });
+</script>
 </body>
 </html>

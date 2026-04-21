@@ -12,7 +12,7 @@ import kr.or.ddit.auth.SecurityContextHolder;
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.service.AuthenticateService;
 import kr.or.ddit.common.exception.EntityNotFoundException;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
@@ -25,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberServiceImpl implements MemberService {
     private MemberMapper mapper = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
     private AuthenticateService authenticateService = new AuthenticateService();
-    private SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+    private SqlSessionFactory sqlSessionFactory =
+            CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
 
     @Override
     public List<MemberDTO> readMemberList() {
@@ -33,10 +34,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void changePassword(String username, String oldPassword, String newPassword) throws AuthenticationException {
+    public void changePassword(String username, String oldPassword, String newPassword)
+            throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("인증된 사용자 : {}", authentication.getPrincipal());
-        MemberDTO memberDTO = authenticateService.authenticate(authentication.getName(), oldPassword);
+        MemberDTO memberDTO =
+                authenticateService.authenticate(authentication.getName(), oldPassword);
 
         // try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
         // SqlSessionContext.setSqlSession(sqlSession);

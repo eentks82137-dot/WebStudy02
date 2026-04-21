@@ -8,8 +8,7 @@ import java.time.LocalDate;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
-
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
@@ -19,7 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberMapperImplTest {
     MemberMapper mapper = MapperProxyGenerator.generateMapperProxy(MemberMapper.class);
-    private SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+    private SqlSessionFactory sqlSessionFactory =
+            CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
 
     @Test
     void testSelectMember() {
@@ -47,22 +47,10 @@ public class MemberMapperImplTest {
 
     @Test
     void testInsertMember() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memId("z009")
-                .memPass("java")
-                .memName("dummy")
-                .memZip("12345")
-                .memAdd1("add1")
-                .memAdd2("add2")
-                .memMail("foo@bar.com")
-                .memRegno1("a")
-                .memRegno2("as")
-                .memHometel("123")
-                .memHp("1245")
-                .memMemorial("asd")
-                .memMemorialday(LocalDate.now())
-                .memComtel("12312")
-                .build();
+        MemberDTO memberDTO = MemberDTO.builder().memId("z009").memPass("java").memName("dummy")
+                .memZip("12345").memAdd1("add1").memAdd2("add2").memMail("foo@bar.com")
+                .memRegno1("a").memRegno2("as").memHometel("123").memHp("1245").memMemorial("asd")
+                .memMemorialday(LocalDate.now()).memComtel("12312").build();
 
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             SqlSessionContext.setSqlSession(sqlSession);
@@ -75,22 +63,10 @@ public class MemberMapperImplTest {
 
     @Test
     void testUpdateMember() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memId("qwer")
-                .memPass("java")
-                .memName("dummy")
-                .memZip("12345")
-                .memAdd1("add1")
-                .memAdd2("add2")
-                .memMail("foo@bar.com")
-                .memRegno1("a")
-                .memRegno2("as")
-                .memHometel("123")
-                .memHp("1245")
-                .memMemorial("asd")
-                .memMemorialday(LocalDate.now())
-                .memComtel("12312")
-                .build();
+        MemberDTO memberDTO = MemberDTO.builder().memId("qwer").memPass("java").memName("dummy")
+                .memZip("12345").memAdd1("add1").memAdd2("add2").memMail("foo@bar.com")
+                .memRegno1("a").memRegno2("as").memHometel("123").memHp("1245").memMemorial("asd")
+                .memMemorialday(LocalDate.now()).memComtel("12312").build();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             SqlSessionContext.setSqlSession(sqlSession);
             MemberDTO before = sqlSession.getMapper(MemberMapper.class).selectMember("qwer");

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <sitemesh>
-	<!-- path 는 사용자의 요청 주소. -->
-<!-- 
+  <!-- path 는 사용자의 요청 주소. -->
+  <!-- 
   <mapping path="/index.do" exclude="true"/>
   <mapping path="/login" exclude="true"/>
    <mapping path="/ajax/*" exclude="true" />
   <mapping path="/member/mypage" exclude="true"/>
   <mapping path="/resources/*" exclude="true"/>
   <mapping path="/admin/*" decorator="admin-layout.jsp"/>-->
-  <mapping path="/*" decorator="main-layout.jsp"/> 
+  <mapping path="/*" decorator="main-layout.jsp"/>
 </sitemesh>

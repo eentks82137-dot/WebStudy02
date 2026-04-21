@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><sitemesh:write property="title"/></title>
     <%@ include file="/WEB-INF/fragments/preCss.jsp" %>
+    
 <sitemesh:write property="head"/>
 </head>
 <body>
@@ -15,7 +16,13 @@
       <sitemesh:write property="body"/>
       
     </div>
-
+<c:if test="${not empty errors}"> 
+    <script>
+        alert("${errors}");
+    </script>
+    <c:remove var="errors" scope="session" />
+</c:if>
 <%@ include file="/WEB-INF/fragments/postScript.jsp" %>
+<p>sitemesh</p>
 </body>
 </html>

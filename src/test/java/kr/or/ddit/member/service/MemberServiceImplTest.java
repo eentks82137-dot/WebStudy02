@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
 
@@ -19,14 +18,16 @@ public class MemberServiceImplTest {
         String oldPassword = "java";
         String newPassword = "java1";
 
-        assertDoesNotThrow(() -> memberServiceImpl.changePassword(username, oldPassword, newPassword));
+        assertDoesNotThrow(
+                () -> memberServiceImpl.changePassword(username, oldPassword, newPassword));
         MemberDTO memberDTO = dao.selectMember(username);
         String updatedPass = memberDTO.getMemPass();
         assertEquals(newPassword, updatedPass);
 
         // 테스트를 통과하면 다시 원래대로 돌리면서 정상적으로 변경 되었는지 확인
 
-        assertDoesNotThrow(() -> memberServiceImpl.changePassword(username, newPassword, oldPassword));
+        assertDoesNotThrow(
+                () -> memberServiceImpl.changePassword(username, newPassword, oldPassword));
 
         memberDTO = dao.selectMember(username);
         updatedPass = memberDTO.getMemPass();

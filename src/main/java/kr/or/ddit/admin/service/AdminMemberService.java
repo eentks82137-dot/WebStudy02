@@ -1,8 +1,7 @@
 package kr.or.ddit.admin.service;
 
 import java.util.List;
-
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.mapper.MemberMapper;
 import kr.or.ddit.mybatis.MapperProxyGenerator;
 

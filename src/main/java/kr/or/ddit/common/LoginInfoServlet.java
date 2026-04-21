@@ -11,14 +11,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @WebServlet("/loginInfo")
 public class LoginInfoServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         MemberDTO authMember = (MemberDTO) req.getSession().getAttribute("authMember");
         log.info("LoginInfoServlet - authMember: " + authMember);
         resp.setContentType("application/json; charset=UTF-8");

@@ -2,8 +2,7 @@ package kr.or.ddit.auth;
 
 import java.security.Principal;
 import java.util.List;
-
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

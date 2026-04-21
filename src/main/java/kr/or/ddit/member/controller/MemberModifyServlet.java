@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.or.ddit.auth.Authentication;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.ViewResolver;
@@ -27,7 +27,8 @@ public class MemberModifyServlet extends HttpServlet {
     private final ViewResolver viewResolver = new ViewResolverComposite();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         // 아이디 가져와서 dto 만들고 req에 담고 보내주기
 
         Authentication authentication = (Authentication) req.getUserPrincipal();
@@ -42,7 +43,8 @@ public class MemberModifyServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         // 받은 정보에 principal에서 memId 꺼내서 설정하고 validate 후 업데이트
         Map<String, String[]> parameterMap = req.getParameterMap();
         String lvn = null;

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.service.AuthenticateService;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 
 public class UsernamePasswordAuthenticationFilter extends HttpFilter {
     private String loginPage;
@@ -43,7 +43,8 @@ public class UsernamePasswordAuthenticationFilter extends HttpFilter {
         if (isLoginRequest(req)) {
             HttpSession session = req.getSession(false);
             String lvn = null;
-            String redirectAfterLogin = (session != null) ? (String) session.getAttribute("redirectAfterLogin") : null;
+            String redirectAfterLogin =
+                    (session != null) ? (String) session.getAttribute("redirectAfterLogin") : null;
 
             if (session == null || session.isNew()) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

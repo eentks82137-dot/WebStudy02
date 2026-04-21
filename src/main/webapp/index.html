@@ -39,107 +39,107 @@
 
     <script>
       const list = [
-        { name: "Unit Converter", url: "http://localhost:8080/hw03/convert" },
-        { name: "Image List", url: "http://localhost:8080/hw02/imageList" },
+        { name: "Unit Converter", url: "/hw03/convert" },
+        { name: "Image List", url: "/hw02/imageList" },
         {
           name: "World Time CN",
-          url: "http://localhost:8080/hw03/worldtime/ui",
+          url: "/hw03/worldtime/ui",
         },
-        { name: "Data Form", url: "http://localhost:8080/03/data-form.jsp" },
-        { name: "Echo Service", url: "http://localhost:8080/03/echo" },
+        { name: "Data Form", url: "/03/data-form.jsp" },
+        { name: "Echo Service", url: "/03/echo" },
         {
           name: "Identify",
-          url: "http://localhost:8080/03/resourceIdentify.jsp",
+          url: "/03/resourceIdentify.jsp",
           desc: "URL / URI, 자원의 접근 경로에 따른 분류",
         },
 
         {
           name: "Response Desc",
-          url: "http://localhost:8080/04/responseDesc.jsp",
+          url: "/04/responseDesc.jsp",
           desc: "HttpServletResponse",
         },
-        { name: "유닛 변환기", url: "http://localhost:8080/hw04/convert" },
+        { name: "유닛 변환기", url: "/hw04/convert" },
         {
-          url: "http://localhost:8080/hw06/calc",
+          url: "/hw06/calc",
           name: "Calculator",
           desc: "사칙연산",
         },
 
         {
-          url: "http://localhost:8080/resources/html/hw06/iframe-view.html",
+          url: "/resources/html/hw06/iframe-view.html",
           name: "/resources/html/hw06/iframe-view.html",
         },
         {
-          url: "http://localhost:8080/hw05/exchange",
+          url: "/hw05/exchange",
           name: "Exchange",
           desc: "환율 계산기",
           date: "2026-03-30",
         },
         {
-          url: "http://localhost:8080/06/cookieDESC.jsp",
+          url: "/06/cookieDESC.jsp",
           name: "Cookie Description",
           desc: "쿠키의 개념과 특징, 사용 방법에 대한 설명",
         },
         {
-          url: "http://localhost:8080/06/cookieRead.jsp",
+          url: "/06/cookieRead.jsp",
           name: "Cookie Read",
           desc: "쿠키 읽기 예시",
         },
         {
-          url: "http://localhost:8080/resources/html/hw07/media-viewer.html",
+          url: "/resources/html/hw07/media-viewer.html",
           name: "Media Viewer",
           desc: "미디어 파일을 선택하여 볼 수 있는 뷰어",
         },
         {
-          url: "http://localhost:8080/06/sessionDESC.jsp",
+          url: "/06/sessionDESC.jsp",
           name: "Session Description",
           desc: "세션의 개념과 특징, 사용 방법에 대한 설명",
           date: "2026-04-01",
         },
         {
-          url: "http://localhost:8080/04/stateCreate",
+          url: "/04/stateCreate",
           name: "State Form",
           desc: "상태 저장을 위한 폼 페이지",
           date: "2026-04-01",
         },
         {
-          url: "http://localhost:8080/login",
+          url: "/login",
           name: "Login",
           desc: "로그인 페이지",
           date: "2026-04-02",
         },
         {
-          url: "http://localhost:8080/admin/allMembers",
+          url: "/admin/allMembers",
           name: "Member List (Admin)",
           desc: "전체 회원 목록 페이지(인메모리)",
           date: "2026-04-02",
         },
         {
-          url: "http://localhost:8080/admin/memberList",
+          url: "/admin/memberList",
           name: "Member List (Admin)",
           desc: "회원 목록 페이지 (DB)",
           date: "2026-04-09",
         },
         {
-          url: "http://localhost:8080/member/changePassword",
+          url: "/member/changePassword",
           name: "Change Password",
           desc: "비밀번호 변경 페이지",
           date: "2026-04-10",
         },
         {
-          url: "http://localhost:8080/books",
+          url: "/books",
           name: "Book List",
           desc: "도서",
           date: "2026-04-13",
         },
         {
-          url: "http://localhost:8080/member/mypage",
+          url: "/member/mypage",
           name: "My Page",
           desc: "마이페이지",
           date: "2026-04-15",
         },
         {
-          url: "http://localhost:8080/member/mypageBS",
+          url: "/member/mypageBS",
           name: "My Page",
           desc: "마이페이지 bootstrap 버전",
           date: "2026-04-15",
@@ -169,7 +169,7 @@
           container.appendChild(link);
         });
 
-        const response = await fetch("http://localhost:8080/loginInfo");
+        const response = await fetch("/loginInfo");
         const loginInfo = await response.json();
         if (response.status !== 200) {
           console.error("로그인 정보 조회 실패:", loginInfo);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.member.mapper.MemberMapper">
-  <resultMap type="kr.or.ddit.member.dto.MemberDTO" id="memberMap" autoMapping="true">
+  <resultMap type="kr.or.ddit.dto.MemberDTO" id="memberMap" autoMapping="true">
     <id property="memId" column="mem_id" />
     <collection property="memRoles" javaType="java.util.List" ofType="java.lang.String">
       <result column="role_name" />
@@ -11,21 +11,21 @@
   <select id="selectMember" resultMap="memberMap"> 
     select m.*, mr.role_name 
     from member m 
-    left outer join member_role mr on ( m.mem_id = mr.mem_id ) 
+     inner join member_role mr on ( m.mem_id = mr.mem_id ) 
     where m.mem_id = #{memId} 
   </select>
 
 
 
-  <!-- selectMemberList --> 
+  <!-- selectMemberList -->
 
-  <select id="selectMemberList" resultMap="memberMap" >
+  <select id="selectMemberList" resultMap="memberMap">
     select m.mem_id, mem_name , mem_pass , mr.role_name , mem_mail, mem_add1, mem_add2, mem_zip, mem_hp
     from member m 
-    left outer join member_role mr on ( m.mem_id = mr.mem_id )
+     inner join member_role mr on ( m.mem_id = mr.mem_id )
   </select>
 
-  <!-- updatePassword --> 
+  <!-- updatePassword -->
 
   <update id="updatePassword">
     update member
@@ -33,16 +33,16 @@
     where mem_id = #{username}
   </update>
 
-  <!-- insertMemberRole --> 
+  <!-- insertMemberRole -->
 
   <insert id="insertMemberRole">
   insert into member_role (mem_id, role_name)
   values (#{memId}, 'ROLE_USER')
-  </insert>  
+  </insert>
 
-  <!-- insertMember --> 
+  <!-- insertMember -->
 
-    <insert id="insertMember" parameterType="kr.or.ddit.member.dto.MemberDTO">
+  <insert id="insertMember" parameterType="kr.or.ddit.dto.MemberDTO">
       INSERT INTO MEMBER (
           MEM_ID,
           MEM_PASS,
@@ -83,9 +83,9 @@
 
       )
 
-  </insert> 
+  </insert>
 
-  <update id="updateMember" parameterType="kr.or.ddit.member.dto.MemberDTO">
+  <update id="updateMember" parameterType="kr.or.ddit.dto.MemberDTO">
     UPDATE MEMBER
     SET 
       MEM_NAME = #{memName},
@@ -103,9 +103,10 @@
       MEM_MEMORIALDAY = #{memMemorialday}
     WHERE MEM_ID = #{memId}
   </update>
-  
+
   <delete id="deleteMember" parameterType="String">
-    DELETE FROM MEMBER
+    UPDATE MEMBER
+    SET MEM_DELETE = 'T'
     WHERE MEM_ID = #{memId}
   </delete>
 
@@ -115,4 +116,4 @@
   </delete>
 
 
-   </mapper>
+</mapper>

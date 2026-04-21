@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.common.exception.EntityNotFoundException;
-import kr.or.ddit.member.dto.MemberDTO;
+import kr.or.ddit.dto.MemberDTO;
 
 /**
  * 사용자 관리를 위한 Business Logic Layer 인터페이스
@@ -58,5 +58,6 @@ public interface MemberService {
      * @param newPassword 새로운 비밀번호
      * @throws AuthenticationException 인증 실패 시 발생하는 예외
      */
-    public void changePassword(String username, String oldPassword, String newPassword) throws AuthenticationException;
+    public void changePassword(String username, String oldPassword, String newPassword)
+            throws AuthenticationException;
 }

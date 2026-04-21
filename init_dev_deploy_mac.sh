@@ -27,9 +27,33 @@ lowercase() {
     echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
+resolve_java_home() {
+    if [[ -n "${JAVA_HOME:-}" && -x "$JAVA_HOME/bin/java" ]]; then
+        echo "$JAVA_HOME"
+        return
+    fi
+
+    if command -v /usr/libexec/java_home >/dev/null 2>&1; then
+        /usr/libexec/java_home 2>/dev/null || true
+        return
+    fi
+
+    if command -v java >/dev/null 2>&1; then
+        local java_bin
+        java_bin=$(command -v java)
+        echo "$(cd "$(dirname "$java_bin")/.." && pwd)"
+    fi
+}
+
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 PROJECT_ROOT="$SCRIPT_DIR"
-TOMCAT_BASE="${TOMCAT_BASE:-$HOME/tomcat}"
+if [[ -z "${TOMCAT_BASE:-}" ]]; then
+    if [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != "root" ]]; then
+        TOMCAT_BASE="$(eval echo "~$SUDO_USER")/tomcat"
+    else
+        TOMCAT_BASE="$HOME/tomcat"
+    fi
+fi
 CONTEXT_NAME="${CONTEXT_NAME:-ROOT}"
 ARTIFACT_ID=$(xmllint --xpath 'string(/*[local-name()="project"]/*[local-name()="artifactId"])' "$PROJECT_ROOT/pom.xml")
 ARTIFACT_ID_LC=$(lowercase "$ARTIFACT_ID")
@@ -71,6 +95,19 @@ fi
 if [[ ! -d "$SOURCE_WEBINF_DIR" ]]; then
     echo "[init-dev-deploy-mac] ERROR: WEB-INF directory not found: $SOURCE_WEBINF_DIR" >&2
     exit 1
+fi
+
+JAVA_HOME_RESOLVED=$(resolve_java_home)
+if [[ -z "$JAVA_HOME_RESOLVED" || ! -x "$JAVA_HOME_RESOLVED/bin/java" ]]; then
+    echo "[init-dev-deploy-mac] ERROR: Java runtime not found. Install JDK and set JAVA_HOME." >&2
+    exit 1
+fi
+export JAVA_HOME="$JAVA_HOME_RESOLVED"
+export JRE_HOME="$JAVA_HOME_RESOLVED"
+log "Using JAVA_HOME: $JAVA_HOME"
+
+if [[ -n "${SUDO_USER:-}" ]]; then
+    log "Running under sudo. If permissions get mixed, prefer running without sudo for ~/tomcat."
 fi
 
 log "Compiling classes and preparing runtime dependencies"

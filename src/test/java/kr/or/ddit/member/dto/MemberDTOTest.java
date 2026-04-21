@@ -16,6 +16,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import kr.or.ddit.dto.MemberDTO;
 import kr.or.ddit.validate.ValidateUtils;
 import kr.or.ddit.validate.groups.DeleteGroup;
 import kr.or.ddit.validate.groups.InsertGroup;
@@ -37,13 +38,8 @@ public class MemberDTOTest {
 
     @Test
     void test1() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memId("a1234")
-                .memPass("abc")
-                .memMail("aa@asd.as")
-                .memBir(LocalDate.now().minusDays(1))
-                .memMileage(100)
-                .build();
+        MemberDTO memberDTO = MemberDTO.builder().memId("a1234").memPass("abc").memMail("aa@asd.as")
+                .memBir(LocalDate.now().minusDays(1)).memMileage(100).build();
         Set<ConstraintViolation<MemberDTO>> constraintViolation = validator.validate(memberDTO);
         constraintViolation.forEach(cv -> {
             String propertyPath = cv.getPropertyPath().toString();
@@ -51,10 +47,9 @@ public class MemberDTOTest {
             log.info("Property: {}, Message: {}", propertyPath, message);
         });
         @SuppressWarnings("unchecked")
-        Map<String, List<String>> errors = constraintViolation.stream().collect(Collectors.toMap(
-                cv -> cv.getPropertyPath().toString(),
-                cv -> List.of(cv.getMessage()),
-                (l1, l2) -> ListUtils.union(l1, l2)));
+        Map<String, List<String>> errors = constraintViolation.stream()
+                .collect(Collectors.toMap(cv -> cv.getPropertyPath().toString(),
+                        cv -> List.of(cv.getMessage()), (l1, l2) -> ListUtils.union(l1, l2)));
         log.info("{}", errors);
     }
 
@@ -63,13 +58,13 @@ public class MemberDTOTest {
         MemberDTO memberDTO = MemberDTO.builder()
 
                 .build();
-        Set<ConstraintViolation<MemberDTO>> constraintViolation = validator.validate(memberDTO, InsertGroup.class);
+        Set<ConstraintViolation<MemberDTO>> constraintViolation =
+                validator.validate(memberDTO, InsertGroup.class);
 
         @SuppressWarnings("unchecked")
-        Map<String, List<String>> errors = constraintViolation.stream().collect(Collectors.toMap(
-                cv -> cv.getPropertyPath().toString(),
-                cv -> List.of(cv.getMessage()),
-                (l1, l2) -> ListUtils.union(l1, l2)));
+        Map<String, List<String>> errors = constraintViolation.stream()
+                .collect(Collectors.toMap(cv -> cv.getPropertyPath().toString(),
+                        cv -> List.of(cv.getMessage()), (l1, l2) -> ListUtils.union(l1, l2)));
         errors.forEach((k, v) -> {
             log.info("{} : {}", k, v);
         });
@@ -77,15 +72,14 @@ public class MemberDTOTest {
 
     @Test
     void testUpdate() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .build();
-        Set<ConstraintViolation<MemberDTO>> constraintViolation = validator.validate(memberDTO, UpdateGroup.class);
+        MemberDTO memberDTO = MemberDTO.builder().build();
+        Set<ConstraintViolation<MemberDTO>> constraintViolation =
+                validator.validate(memberDTO, UpdateGroup.class);
 
         @SuppressWarnings("unchecked")
-        Map<String, List<String>> errors = constraintViolation.stream().collect(Collectors.toMap(
-                cv -> cv.getPropertyPath().toString(),
-                cv -> List.of(cv.getMessage()),
-                (l1, l2) -> ListUtils.union(l1, l2)));
+        Map<String, List<String>> errors = constraintViolation.stream()
+                .collect(Collectors.toMap(cv -> cv.getPropertyPath().toString(),
+                        cv -> List.of(cv.getMessage()), (l1, l2) -> ListUtils.union(l1, l2)));
         errors.forEach((k, v) -> {
             log.info("{} : {}", k, v);
         });
@@ -93,16 +87,14 @@ public class MemberDTOTest {
 
     @Test
     void testDelete() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memId("as")
-                .build();
-        Set<ConstraintViolation<MemberDTO>> constraintViolation = validator.validate(memberDTO, DeleteGroup.class);
+        MemberDTO memberDTO = MemberDTO.builder().memId("as").build();
+        Set<ConstraintViolation<MemberDTO>> constraintViolation =
+                validator.validate(memberDTO, DeleteGroup.class);
 
         @SuppressWarnings("unchecked")
-        Map<String, List<String>> errors = constraintViolation.stream().collect(Collectors.toMap(
-                cv -> cv.getPropertyPath().toString(),
-                cv -> List.of(cv.getMessage()),
-                (l1, l2) -> ListUtils.union(l1, l2)));
+        Map<String, List<String>> errors = constraintViolation.stream()
+                .collect(Collectors.toMap(cv -> cv.getPropertyPath().toString(),
+                        cv -> List.of(cv.getMessage()), (l1, l2) -> ListUtils.union(l1, l2)));
         errors.forEach((k, v) -> {
             log.info("{} : {}", k, v);
         });
@@ -110,11 +102,8 @@ public class MemberDTOTest {
 
     @Test
     void testValidateUtils() {
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memComtel("041-836-96811")
-                .memHometel("asd")
-                .memHp("000-0000-0000")
-                .build();
+        MemberDTO memberDTO = MemberDTO.builder().memComtel("041-836-96811").memHometel("asd")
+                .memHp("000-0000-0000").build();
         Map<String, List<String>> errors = ValidateUtils.validate(memberDTO, InsertGroup.class);
         errors.forEach((k, v) -> {
             log.info("{} : {}", k, v);
